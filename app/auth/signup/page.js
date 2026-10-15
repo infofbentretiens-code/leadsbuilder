@@ -176,7 +176,7 @@ function SignupForm() {
 
           <div className="bg-blue-50 p-4 rounded-lg mb-6">
             <p className="text-sm text-gray-700">
-              <span className="font-semibold">Forfait sélectionné :</span> {planParam.charAt(0).toUpperCase() + planParam.slice(1)}
+              <span className="font-semibold">Forfait sélectionné :</span> {({starter: 'Essentiel', professional: 'Professionnel', enterprise: 'Entreprise'})[planParam] || 'Professionnel'}
             </p>
             <p className="text-xs text-gray-600 mt-1">
               Essai gratuit de 14 jours inclus avec tous les forfaits
