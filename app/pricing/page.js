@@ -45,7 +45,7 @@ export default function PricingPage() {
       annualPrice: 1990,
       description: 'Pour les grandes organisations',
       features: [
-        'Tout inclus dans Professional',
+        'Tout inclus dans Professionnel',
         'Membres d\'équipe illimités',
         'Rôles et permissions personnalisés',
         'Accès API complet',
@@ -171,7 +171,7 @@ export default function PricingPage() {
                 Puis-je changer mon forfait à tout moment ?
               </h3>
               <p className="text-gray-600">
-                Oui, vous pouvez améliorer ou réduire votre forfait à tout moment. Les changements prennent effet immédiatement.
+                La gestion des abonnements sera disponible lors du lancement commercial. Aucun abonnement payant n’est actuellement activé.
               </p>
             </div>
 
@@ -189,7 +189,7 @@ export default function PricingPage() {
                 Quelles méthodes de paiement acceptez-vous ?
               </h3>
               <p className="text-gray-600">
-                Nous acceptons toutes les principales cartes de crédit, les virements bancaires et les moyens de paiement numériques via Stripe.
+                Les paiements ne sont pas encore activés. Les moyens de paiement disponibles seront précisés lors du lancement commercial.
               </p>
             </div>
 
@@ -198,7 +198,7 @@ export default function PricingPage() {
                 Y a-t-il un contrat ou des frais d'installation ?
               </h3>
               <p className="text-gray-600">
-                Aucun contrat, pas de frais d'installation. Annulez à tout moment. Payez uniquement ce que vous utilisez.
+                La création du compte de test ne déclenche aucun paiement. Les conditions commerciales seront précisées avant toute souscription payante.
               </p>
             </div>
 
