@@ -112,8 +112,8 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-4 text-center text-sm">
-          <Link href="/contact" className="text-blue-500 hover:text-blue-600">
-            Besoin d’aide pour vous connecter ?
+          <Link href="/auth/forgot-password" className="text-blue-500 hover:text-blue-600">
+            Mot de passe oublié ?
           </Link>
         </div>
       </div>
