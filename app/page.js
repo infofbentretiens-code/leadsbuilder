@@ -182,13 +182,13 @@ export default function Home() {
               marginBottom: '12px',
               color: '#1F2937',
             }}>
-              Notifications intelligentes
+              Notifications par e-mail — à venir
             </h3>
             <p style={{
               color: '#666',
               lineHeight: '1.6',
             }}>
-              Recevez des notifications email instantanées lors de l'arrivée de nouveaux leads ou de changements de statut. Ne manquez jamais une opportunité.
+              Les alertes par e-mail sont prévues dans une prochaine étape. Retrouvez dès maintenant vos contacts et leur statut dans votre espace.
             </p>
           </div>
 
