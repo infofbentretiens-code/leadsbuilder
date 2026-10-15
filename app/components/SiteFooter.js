@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function SiteFooter(){return <footer className="border-t bg-white text-sm text-slate-600 p-6 mt-10"><nav aria-label="Informations du site" className="max-w-5xl mx-auto flex flex-wrap gap-5"><Link href="/">LeadsBuilder</Link><Link href="/contact">Contact et assistance</Link><Link href="/confidentialite">Confidentialité</Link><Link href="/conditions">Conditions du service</Link><a href="mailto:info.fbentretiens@gmail.com">info.fbentretiens@gmail.com</a></nav></footer>;}

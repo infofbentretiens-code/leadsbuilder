@@ -7,7 +7,8 @@ import Link from 'next/link';
 function SignupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const planParam = searchParams.get('plan') || 'professional';
+  const planParam = 'starter';
+  const billing = searchParams.get('billing') === 'annual' ? 'annual' : 'monthly';
 
   const [formData, setFormData] = useState({
     email: '',
@@ -51,6 +52,7 @@ function SignupForm() {
           lastName: formData.lastName,
           company: formData.company,
           plan: planParam,
+          billing,
         }),
       });
 
@@ -140,7 +142,7 @@ function SignupForm() {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-              placeholder="john@example.com"
+              placeholder="jean@exemple.com"
             />
           </div>
 
@@ -179,10 +181,11 @@ function SignupForm() {
               <span className="font-semibold">Forfait sélectionné :</span> {({starter: 'Essentiel', professional: 'Professionnel', enterprise: 'Entreprise'})[planParam] || 'Professionnel'}
             </p>
             <p className="text-xs text-gray-600 mt-1">
-              Essai gratuit de 14 jours inclus avec tous les forfaits
+              Aucune carte demandée. Aucun paiement à la création du compte.
             </p>
           </div>
 
+          <p className="text-sm text-gray-600">Consultez les <Link className="text-blue-700" href="/conditions">conditions du service</Link> et la <Link className="text-blue-700" href="/confidentialite">politique de confidentialité</Link>.</p>
           <button
             type="submit"
             disabled={loading}

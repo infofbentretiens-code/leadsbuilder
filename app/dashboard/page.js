@@ -162,10 +162,10 @@ export default function Dashboard() {
               <div key={status} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div style={{
                   width: '100%',
-                  height: `${height}%`,
+                  height: `${count ? Math.max(12, height * 1.6) : 2}px`,
                   backgroundColor: getStatusColor(status),
                   borderRadius: '4px 4px 0 0',
-                  minHeight: '30px',
+                  minHeight: '2px',
                   display: 'flex',
                   alignItems: 'flex-end',
                   justifyContent: 'center',

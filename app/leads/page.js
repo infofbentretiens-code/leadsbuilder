@@ -16,6 +16,8 @@ export default function LeadsPage() {
   });
 
   const [leads, setLeads] = useState([]);
+  const [search,setSearch]=useState(''),[statusFilter,setStatusFilter]=useState('');
+  const filteredLeads=leads.filter(l=>(!statusFilter||l.statut===statusFilter)&&[l.nom,l.email,l.entreprise,l.telephone,l.notes].some(v=>String(v||'').toLocaleLowerCase('fr').includes(search.toLocaleLowerCase('fr'))));
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
 
@@ -69,24 +71,6 @@ export default function LeadsPage() {
 
       if (error) throw error;
 
-      // Envoyer une notification email
-      try {
-        await fetch('/api/send-lead-notification', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: formData.email,
-            nom: formData.nom,
-            entreprise: formData.entreprise,
-            telephone: formData.telephone,
-            source: formData.source,
-            notes: formData.notes,
-          }),
-        });
-      } catch (emailError) {
-        console.error('Email notification failed:', emailError);
-      }
-
       setMessage('✅ Lead ajouté avec succès');
       setMessageType('success');
       setFormData({
@@ -123,24 +107,6 @@ export default function LeadsPage() {
       setLeads(leads.map(lead =>
         lead.id === leadId ? { ...lead, statut: newStatus } : lead
       ));
-
-      // Send status change email notification
-      try {
-        await fetch('/api/send-status-notification', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nom: currentLead?.nom,
-            email: currentLead?.email,
-            entreprise: currentLead?.entreprise,
-            newStatus,
-            oldStatus,
-          }),
-        });
-      } catch (emailError) {
-        console.error('Email notification failed:', emailError);
-      }
-
 
       setMessage('✅ Statut mis à jour');
       setMessageType('success');
@@ -387,13 +353,14 @@ export default function LeadsPage() {
           </button>
         </form>
 
-        {/* Liste des leads */}
+        <section aria-label="Rechercher les contacts" className="border rounded p-4 mb-6 flex flex-wrap gap-4"><div><label htmlFor="contact-search" className="block mb-1">Rechercher un contact</label><input id="contact-search" type="search" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Nom, e-mail ou entreprise" className="border rounded p-2"/></div><div><label htmlFor="status-filter" className="block mb-1">Filtrer par statut</label><select id="status-filter" value={statusFilter} onChange={e=>setStatusFilter(e.target.value)} className="border rounded p-2"><option value="">Tous les statuts</option>{statusOptions.map(o=><option value={o.value} key={o.value}>{o.label}</option>)}</select></div><a href="/api/export" className="text-blue-700 self-end p-2">Exporter tous mes contacts (CSV)</a></section>
+      {/* Liste des leads */}
         <div>
           <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '15px' }}>
-            Leads ({leads.length})
+            Contacts ({filteredLeads.length} / {leads.length})
           </h2>
 
-          {leads.length === 0 ? (
+          {filteredLeads.length === 0 ? (
             <div style={{
               padding: '40px 20px',
               textAlign: 'center',
@@ -412,7 +379,7 @@ export default function LeadsPage() {
               maxHeight: '600px',
               overflowY: 'auto',
             }}>
-              {leads.map(lead => (
+              {filteredLeads.map(lead => (
                 <div key={lead.id} style={{
                   padding: '15px',
                   backgroundColor: 'white',

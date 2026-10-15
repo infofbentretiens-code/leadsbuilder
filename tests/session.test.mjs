@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {createSession,verifySession,SESSION_TTL} from '../lib/session.mjs';
+import {createSession,verifySession,verifySessionClaims,SESSION_TTL} from '../lib/session.mjs';
 process.env.SESSION_SECRET='test-only-secret-0123456789-abcdefghijklmnopqrstuvwxyz';
 test('signed sessions identify only their original account',async()=>{
   const token=await createSession(17,1000000);
@@ -18,3 +18,4 @@ test('expired and malformed sessions are refused',async()=>{
 test('invalid account identifiers cannot be signed',async()=>{
   for(const id of ['0','-1','abc','1.2']) await assert.rejects(createSession(id));
 });
+test('session versions are signed so password reset can revoke existing sessions',async()=>{const token=await createSession(17,1000000,4);assert.equal((await verifySessionClaims(token,1000000)).v,4);assert.equal((await verifySessionClaims(await createSession(17,1000000),1000000)).v,0);});

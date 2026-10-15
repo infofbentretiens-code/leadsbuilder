@@ -1,0 +1,3 @@
+import {requireUser,readJson,database,fail,invalid} from '../../../lib/server';
+import {stripeClient,appUrl,billingReady} from '../../../lib/billing';
+export async function POST(req){try{const id=await requireUser();await readJson(req);if(!billingReady()) throw Object.assign(new Error('La facturation est en cours de configuration.'),{status:503});const {data:user,error}=await database().from('users').select('stripe_customer_id').eq('id',id).single();if(error) throw error;if(!user.stripe_customer_id) throw invalid('Aucun compte de facturation pour le moment.');const session=await stripeClient().billingPortal.sessions.create({customer:user.stripe_customer_id,return_url:appUrl()+'/account'});return Response.json({url:session.url});}catch(e){return fail(e);}}
