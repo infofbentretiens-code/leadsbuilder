@@ -65,7 +65,7 @@ export default function Home() {
         textAlign: 'center',
       }}>
         <h1 style={{
-          fontSize: '56px',
+          fontSize: 'clamp(32px, 7vw, 56px)',
           fontWeight: 'bold',
           marginBottom: '24px',
           color: '#1F2937',
@@ -81,14 +81,14 @@ export default function Home() {
           maxWidth: '700px',
           lineHeight: '1.6',
         }}>
-          LeadsBuilder est une solution complète pour gérer vos leads commerciaux. Suivi des statuts, tableau de bord et historique des interactions — tout dans une seule plateforme intuitive.
+          LeadsBuilder est une solution simple pour gérer vos leads commerciaux. Suivi des statuts, tableau de bord et historique des interactions — tout dans une seule plateforme intuitive.
         </p>
 
         <div style={{
           display: 'flex',
           gap: '20px',
           justifyContent: 'center',
-          marginBottom: '80px',
+          marginBottom: '80px', flexWrap: 'wrap',
         }}>
           <Link href="/pricing" style={{
             padding: '14px 40px',
@@ -99,7 +99,7 @@ export default function Home() {
             textDecoration: 'none',
             fontSize: '16px',
           }}>
-            Essai gratuit 14 jours
+            Découvrir gratuitement
           </Link>
           <Link href="/pricing" style={{
             padding: '14px 40px',
@@ -133,7 +133,7 @@ export default function Home() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
           gap: '40px',
           maxWidth: '1200px',
           margin: '0 auto',
@@ -161,7 +161,7 @@ export default function Home() {
               color: '#666',
               lineHeight: '1.6',
             }}>
-              Suivez les performances de vos leads avec des analyses détaillées. Voyez ce qui fonctionne et optimisez votre processus de vente.
+              Consultez le nombre de contacts à chaque étape : nouveau, contacté, qualifié, perdu ou converti.
             </p>
           </div>
 
@@ -296,7 +296,7 @@ export default function Home() {
               color: '#666',
               lineHeight: '1.6',
             }}>
-              Commencez par notre essai gratuit et évoluez au fur et à mesure. Choisissez le forfait adapté à votre entreprise.
+              Ajoutez vos propres contacts, recherchez un nom et exportez votre liste au format CSV.
             </p>
           </div>
         </div>
@@ -324,7 +324,7 @@ export default function Home() {
           margin: '0 auto 40px',
           lineHeight: '1.6',
         }}>
-          Commencez votre essai gratuit de 14 jours aujourd'hui. Aucune carte de crédit requise. Aucun prélèvement automatique.
+          Découvrez les fonctions de gestion de contacts. Aucune carte de crédit requise. Aucun prélèvement automatique.
         </p>
 
         <Link href="/pricing" style={{
