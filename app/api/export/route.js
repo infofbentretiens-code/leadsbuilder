@@ -1,0 +1,3 @@
+import {requireUser,database,fail} from '../../../lib/server';
+import {contactsCsv} from '../../../lib/csv.mjs';
+export async function GET(){try{const id=await requireUser(),db=database(),rows=[];for(let from=0;;from+=1000){const {data,error}=await db.from('leads').select('id,nom,email,entreprise,telephone,statut,source,notes,created_at').eq('user_id',id).order('id').range(from,from+999);if(error)throw error;rows.push(...data);if(data.length<1000)break;}return new Response(contactsCsv(rows),{headers:{'Content-Type':'text/csv; charset=utf-8','Content-Disposition':'attachment; filename="mes-contacts.csv"','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});}catch(e){return fail(e);}}
