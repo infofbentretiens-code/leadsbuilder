@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { supabase } from '../../../lib/client-data';
 import Link from 'next/link';
+import AccountNav from '../../components/AccountNav';
 
 export default function LeadDetailPage() {
   const params = useParams();
@@ -151,6 +152,7 @@ export default function LeadDetailPage() {
       maxWidth: '1000px',
       margin: '0 auto',
     }}>
+      <AccountNav/>
       {/* Message de feedback */}
       {message && (
         <div style={{
@@ -212,7 +214,7 @@ export default function LeadDetailPage() {
               fontWeight: 'bold',
               fontSize: '14px',
             }}>
-              {lead.statut}
+              {({nouveau:'Nouveau',contacte:'Contacté',qualifie:'Qualifié',perdu:'Perdu',converti:'Converti'})[lead.statut]||lead.statut}
             </p>
           </div>
         </div>
