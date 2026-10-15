@@ -1,4 +1,5 @@
 import {database,requireUser,readJson,fail,invalid,text} from '../../../lib/server';
+import {requireWriteAccess} from '../../../lib/billing';
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const statuses=['nouveau','contacte','qualifie','perdu','converti'];
 export async function POST(req) {
@@ -7,6 +8,7 @@ export async function POST(req) {
     const {table,operation,filters=[],values,single,order}=body;
     if (!['leads','interactions'].includes(table)||!['select','insert','update','delete'].includes(operation)||!Array.isArray(filters)||filters.length>2) throw invalid('Requête invalide.');
     for (const f of filters) if(!['id','lead_id'].includes(f.column)||!uuid.test(f.value)) throw invalid('Identifiant invalide.');
+    if(['insert','update'].includes(operation)) await requireWriteAccess(userId);
     let query;
     if(table==='leads') {
       if(filters.some(f=>f.column!=='id')) throw invalid('Filtre invalide.');
@@ -40,7 +42,7 @@ export async function POST(req) {
       if(operation==='delete') query=db.from('interactions').delete().eq('lead_id',leadId);
       if(operation==='insert') {
         const row=Array.isArray(values)?values[0]:values;
-        if(!['email','appel','reunion','sms','note'].includes(row.type)||!text(row.description,5000)) throw invalid('Interaction invalide.');
+        if(!['email','appel','reunion','visite','autre','sms','note'].includes(row.type)||!text(row.description,5000)) throw invalid('Interaction invalide.');
         query=db.from('interactions').insert({lead_id:leadId,type:row.type,description:text(row.description,5000),date_interaction:new Date().toISOString()});
       }
     }
