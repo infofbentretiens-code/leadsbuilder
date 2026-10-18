@@ -1,6 +1,7 @@
 import './globals.css';
 import SiteFooter from './components/SiteFooter';
 export const metadata = {
+  metadataBase: new URL('https://www.swissbuisness.com'),
   title: 'Swissbuisness LeadsBuilder',
   description: 'Organisez vos contacts commerciaux, suivez vos échanges et préparez vos relances avec LeadsBuilder.',
 }
